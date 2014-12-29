@@ -5,6 +5,27 @@ Providers for common Circonus checks
 
 ## Usage
 
+### postgres_locks
+
+A gauge showing number of current locks of each type.
+
+```ruby
+include_recipe 'circonus-checks'
+
+circonus_postgres_locks 'postgres' do
+  database 'postgres'
+  port 5432
+  user 'postgres'
+  password 'lajfaldsfasdj'
+  target node.ipaddress
+end
+```
+
+* name - arbitrary
+* port - defaults to 5432
+* user - defaults to 'postgres'
+* password - if not used, no password is included in connection string
+
 ### sidekiq_queue
 
 ```ruby
