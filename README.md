@@ -18,6 +18,7 @@ circonus_postgres_locks 'postgres' do
   user 'postgres'
   password 'lajfaldsfasdj'
   target node.ipaddress
+  broker 'my-broker'
 end
 ```
 
@@ -25,6 +26,8 @@ end
 * port - defaults to 5432
 * user - defaults to 'postgres'
 * password - if not used, no password is included in connection string
+* target - circonus target for postgres check
+* broker - broker for graph creation
 
 ### sidekiq_queue
 

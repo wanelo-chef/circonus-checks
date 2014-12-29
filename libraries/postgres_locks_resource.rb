@@ -23,6 +23,10 @@ class Chef
         set_or_return(:name, arg, kind_of: String)
       end
 
+      def broker(arg = nil)
+        set_or_return(:broker, arg, kind_of: String, required: true)
+      end
+
       def database(arg = nil)
         set_or_return(:database, arg, kind_of: String, required: true)
       end
@@ -41,6 +45,23 @@ class Chef
 
       def target(arg = nil)
         set_or_return(:target, arg, kind_of: String, required: true)
+      end
+
+      def bundle_name
+        "postgres-locks - #{node.name}"
+      end
+
+      def connection_string
+        ['host=%[target_ip]'].tap do |dsn|
+          dsn << "port=#{port}"
+          dsn << "user=#{user}"
+          dsn << "password=#{password}" if password
+          dsn << "dbname=#{database}"
+        end.join(' ')
+      end
+
+      def graph_name
+        "#{node.name} - postgres locks"
       end
     end
   end
