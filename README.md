@@ -29,6 +29,30 @@ end
 * target - circonus target for postgres check
 * broker - broker for graph creation
 
+### rabbitmq_overview
+
+Tracks metrics relating to overall RabbitMQ usage, including number
+of connections, messages pending consumption and overall message count.
+This configures a Circonus JSON check which hits the RabbitMQ overview API,
+and depends on the RabbitMQ management plugin being installed.
+
+```ruby
+circonus_rabbitmq_overview 'my-app' do
+  port 15672
+  user 'guest'
+  password 'guest'
+  broker 'circonus.broker'
+  target node.ipaddress
+end
+```
+
+* name — arbitrary, just to make Chef resource unique
+* port — the port to the admin API, which is different from the port used by AMQP
+* user — a user with administrator privileges (required)
+* password — (required)
+* broker — broker for graph creation
+* target — target for json check.
+
 ### sidekiq_queue
 
 ```ruby
